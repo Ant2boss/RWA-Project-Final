@@ -1,4 +1,77 @@
-﻿use AdventureWorksOBP
+﻿use master
+go
+
+create database RWA_Auth_DB
+go
+
+use RWA_Auth_DB
+go
+
+/*
+----------------------
+	TABLES
+----------------------
+*/
+
+create table UserAuth
+(
+	IDUser int primary key identity,
+	Username nvarchar(50) unique not null,
+	Pass char(64) not null
+)
+go
+
+--select * from UserAuth
+--drop table UserAuth
+
+/*
+----------------------
+	PROCEDURES
+----------------------
+*/
+
+/*
+----------------------
+	LOGINS
+----------------------
+*/
+
+create proc CreateUser @Username nvarchar(50), @Password char(64), @IDUser int output
+as
+begin
+	insert into UserAuth values (@Username, @Password)
+
+	set @IDUser = SCOPE_IDENTITY()
+end
+go
+
+create proc CheckUser @Username nvarchar(50), @Password char(64), @IDUser int output
+as
+begin
+	set @IDUser = -1
+
+	select @IDUser = IDUser from UserAuth
+		where Username = @Username and Pass = @Password
+end
+go
+
+create proc GetUser @IDUser int
+as
+begin
+	select IDUser, Username from UserAuth
+		where IDUser = @IDUser
+end
+go
+
+create proc DeleteUser @IDUser int
+as
+begin
+	delete from UserAuth	
+		where IDUser = @IDUser	
+end
+go
+
+use AdventureWorksOBP
 go
 
 /*
