@@ -1,0 +1,67 @@
+﻿@model IEnumerable<RWA_DataLayer.Models.Potkategorija>
+
+@{
+	ViewBag.Title = "Potkategorije";
+}
+
+<h1 class="my-big-header">Potkategorije</h1>
+
+<hr />
+
+<div class="my-flex-center">
+	@Html.ActionLink("Create New", "Create", routeValues: null, htmlAttributes: new { @class="btn btn-sm btn-success w-50"})
+</div>
+
+<table class="table table-sm table-striped table-bordered" id="PotkategorijaTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.IDPotkategorija)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Naziv)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.KategorijaID)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.IDPotkategorija)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Naziv)
+				</td>
+				<td>
+					@Html.Action(actionName: "GetNaziv", controllerName: "Kategorija", routeValues: new { id = item.KategorijaID })
+				</td>
+				<td>
+					<div class="my-flex-center h-100 w-100">
+						@Html.ActionLink(linkText: "Uredi", actionName: "Edit", routeValues: new { id = item.IDPotkategorija }, htmlAttributes: new { @class = "btn btn-sm btn-warning" })
+						@Html.ActionLink(linkText: "Obriši", actionName: "Delete", routeValues: new { id = item.IDPotkategorija }, htmlAttributes: new { @class = "btnDeleteConfirm btn btn-sm btn-danger" })
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
+
+@section scripts
+{
+	<script>
+		$(() => {
+			$("#PotkategorijaTable").DataTable({
+				columnDefs: [
+					{orderable: false, targets: 3}
+				]
+			});
+		});
+	</script>
+}

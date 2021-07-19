@@ -1,0 +1,34 @@
+﻿.my-bg {
+	background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.my-center-content {
+	width: 750px;
+	margin: auto;
+	margin-top: 25px;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid #2548b0;
+	border-radius: 10px;
+	background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+	padding: 15px;
+}
+
+.my-header {
+	font-size: 32px;
+	text-align: center;
+}
+
+.my-btn {
+	width: 75%;
+	margin: 15px auto;
+}
+
+@media (max-width: 800px) {
+	.my-center-content {
+		width: 100%;
+		border: 0;
+		border-radius: 0;
+		margin: 0;
+	}
+}

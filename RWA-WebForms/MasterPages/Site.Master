@@ -1,0 +1,47 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="RWA_WebForms.MasterPages.Site" %>
+
+<!DOCTYPE html>
+
+<html lang="hr">
+<head runat="server">
+	<title>RWA - WebForms</title>
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<link href="~/CSS/Master.css" rel="stylesheet" />
+
+	<script src="/Scripts/bootstrap.js"></script>
+	<script src="/Scripts/jquery-3.6.0.min.js"></script>
+
+	<script src="/JS/MessageHandler.js"></script>
+	<asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+	<form id="form1" runat="server">
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<asp:HyperLink Text="RWA" NavigateUrl="~/Default.aspx" CssClass="navbar-brand" runat="server" />
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav my-nav-modifier">
+						<asp:Hyperlink ID="lbRegister" Text="Registracija" CssClass="nav-link" NavigateUrl="~/Login/Register.aspx" runat="server" />
+						<asp:Hyperlink ID="lbLogin" Text="Prijava" CssClass="nav-link" NavigateUrl="~/Login/Login.aspx" runat="server" />
+						<asp:Hyperlink ID="lbKupci" Text="Kupci" CssClass="nav-link" NavigateUrl="~/Profile/Kupci.aspx" runat="server" />
+						<asp:Hyperlink ID="lbGradovi" Text="Gradovi" CssClass="nav-link" NavigateUrl="~/Profile/Gradovi.aspx" runat="server" />
+						<asp:Hyperlink ID="lbDrzave" Text="Države" CssClass="nav-link" NavigateUrl="~/Profile/Drzave.aspx" runat="server" />
+						<asp:LinkButton ID="btnLogout" Text="Odjava" CssClass="nav-link text-danger" OnClick="btnLogout_Click" runat="server" />
+					</div>
+				</div>
+			</div>
+		</nav>
+
+
+		<div>
+			<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+		</div>
+
+		<asp:Label ID="lbAlertMessage" CssClass="invisible" ClientIDMode="Static" runat="server" />
+	</form>
+</body>
+</html>

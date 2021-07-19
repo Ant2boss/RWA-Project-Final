@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="RWA_Project.MasterPages.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+	<title></title>
+	<script src="../Scripts/jquery-3.4.1.js"></script>
+	<script src="../Scripts/DataTables/jquery.dataTables.min.js"></script>
+	<script src="../Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+	<script src="../Scripts/modernizr-2.8.3.js"></script>
+	<script src="../Scripts/jquery.validate.js"></script>
+	<script src="../Scripts/bootstrap.js"></script>
+
+	<link href="../Content/bootstrap.css" rel="stylesheet" />
+	<link href="../Content/Site.css" rel="stylesheet" />
+	<link href="../Content/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+	<asp:ContentPlaceHolder ID="head" runat="server">
+	</asp:ContentPlaceHolder>
+</head>
+<body>
+	<form id="form1" runat="server">
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<asp:HyperLink NavigateUrl="~/Home/Index" Text="RWA-WebForms" CssClass="navbar-brand" runat="server" />
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><asp:HyperLink NavigateUrl="~/Home/Index" Text="Home" runat="server" /></li>
+						<li><asp:HyperLink NavigateUrl="~/Racun/Index" Text="Racun" runat="server" /></li>
+						<li><asp:HyperLink NavigateUrl="~/Proizvod/Index" Text="Proizvod" runat="server" /></li>
+						<li><asp:HyperLink NavigateUrl="~/Potkategorija/Index" Text="Potkategorija" runat="server" /></li>
+						<li><asp:HyperLink NavigateUrl="~/Kategorija/Index" Text="Kategorija" runat="server" /></li>
+						<li><asp:HyperLink NavigateUrl="~/Kupac/Index" Text="Kupac" runat="server" /></li>
+						<li><asp:HyperLink NavigateUrl="~/Grad/Index" Text="Grad" runat="server" /></li>
+						<li><asp:HyperLink NavigateUrl="~/Drzava/Index" Text="Drzava" runat="server" /></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container body-content">
+			<asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+			<hr />
+			<footer>
+				<p>&copy; RWA - Project - AK - 2021</p>
+			</footer>
+		</div>
+	</form>
+</body>
+</html>

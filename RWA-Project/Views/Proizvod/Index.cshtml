@@ -1,0 +1,95 @@
+﻿@model IEnumerable<RWA_DataLayer.Models.Proizvod>
+
+@{
+	ViewBag.Title = "Proizvodi";
+}
+
+<h1 class="my-big-header">Proizvodi</h1>
+
+<hr />
+
+<div class="my-flex-center mb-2">
+	@Html.ActionLink(
+		linkText: "Create New",
+		actionName: "Create",
+		controllerName: "Proizvod",
+		routeValues: null,
+		htmlAttributes: new { @class = "btn btn-sm btn-success w-50 m-auto" })
+</div>
+
+<table class="table table-sm table-striped table-bordered" hidden="hidden" id="ProizvodTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.IDProizvod)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Naziv)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.BrojProizvoda)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Boja)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.MinimalnaKolicinaNaSkladistu)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.CijenaBezPDV)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PotkategorijaID)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.IDProizvod)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Naziv)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.BrojProizvoda)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Boja)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.MinimalnaKolicinaNaSkladistu)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CijenaBezPDV)
+				</td>
+				<td>
+					@Html.Action(actionName: "GetNaziv", controllerName: "Potkategorija", routeValues: new { id = item.PotkategorijaID })
+				</td>
+				<td>
+					<div class="my-flex-center h-100 w-100">
+						@Html.ActionLink(linkText: "Uredi", actionName: "Edit", routeValues: new { id = item.IDProizvod }, htmlAttributes: new { @class="btn btn-sm btn-warning" })
+						@Html.ActionLink(linkText: "Obriši", actionName: "Delete", routeValues: new { id = item.IDProizvod }, htmlAttributes: new { @class= "btnDeleteConfirm btn btn-sm btn-danger" })
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@section scripts
+{
+	<script>
+		$(() => {
+			$("#ProizvodTable").DataTable({
+				columnDefs: [
+					{ targets: 7, orderable: false }
+				]
+			});
+			$("#ProizvodTable").fadeIn(250);
+		});
+	</script>
+}

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<RWA_DataLayer.Models.Grad>
+
+@{
+	ViewBag.Title = "Grad";
+}
+
+<h1 class="my-big-header">Gradovi</h1>
+<hr />
+<div class="my-flex-center">
+	@Html.ActionLink(linkText: "Create New", actionName: "Create", routeValues: null, htmlAttributes: new { @class = "btn btn-success btn-sm w-50 m-auto" })
+</div>
+<table class="table table-sm table-striped table-bordered" id="GradTable">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.IDGrad)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Naziv)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DrzavaID)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.IDGrad)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Naziv)
+				</td>
+				<td>
+					@Html.Action(actionName: "GetNaziv", controllerName: "Drzava", routeValues: new { id = item.DrzavaID })
+				</td>
+				<td>
+					<div class="my-flex-center h-100 w-100">
+						@Html.ActionLink(linkText: "Uredi", actionName: "Edit", routeValues: new { id = item.IDGrad }, htmlAttributes: new { @class = "btn btn-sm btn-warning" })
+						@Html.ActionLink(linkText: "Obriši", actionName: "Delete", routeValues: new { id = item.IDGrad }, htmlAttributes: new { @class = "btnDeleteConfirm btn btn-sm btn-danger" })
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
+
+@section scripts {
+	<script>
+		$(() => {
+
+			const dataTableConfig = {
+				columnDefs: [
+					{ orderable: false, targets: 3 }
+				]
+			}
+
+			$("#GradTable").DataTable(dataTableConfig);
+
+		});
+	</script>
+}

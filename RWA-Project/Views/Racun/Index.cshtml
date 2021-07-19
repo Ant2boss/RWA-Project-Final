@@ -1,0 +1,185 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+}
+
+<h1 class="my-big-header">Računi</h1>
+<hr />
+
+<div class="form-group">
+	<div class="row">
+		<div class="col-md-12 col-lg-6">
+			<h2 class="my-sub-header">Odabir kupca</h2>
+			<hr />
+			<table class="table table-sm table-striped table-bordered my-tbl" id="tblKupci">
+				<thead>
+					<tr>
+						<th>Ime</th>
+						<th>Prezime</th>
+						<th>Odaberi</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-12 col-lg-6">
+			<h2 class="my-sub-header">Odabir računa</h2>
+			<hr />
+			<table class="table table-sm table-striped table-bordered my-tbl" id="tblRacuni">
+				<thead>
+					<tr>
+						<th>IDRacun</th>
+						<th>Broj Računa</th>
+						<th>Odaberi</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-12">
+			<h2 class="my-sub-header">Odabir stavke</h2>
+			<hr />
+			<table class="table table-sm table-striped table-bordered" id="tblStavke">
+				<thead>
+					<tr>
+						<th>IDStavka</th>
+						<th>Proizvod</th>
+						<th>Potkategorija</th>
+						<th>Kategorija</th>
+						<th>Kreditna kartica</th>
+						<th>Komercijalist</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+</div>
+
+@section scripts
+{
+	<script>
+		function CreateOptionElement(text, value) {
+			return `<option value=${value}>${text}</option>`;
+		}
+
+		function HandleKupacTable() {
+			$("#tblKupci").DataTable({
+				ajax: {
+					url: "/api/KupacAPI",
+					dataSrc: ""
+				},
+				columns: [
+					{ data: "Ime" },
+					{ data: "Prezime" },
+					{
+						data: "IDKupac",
+						render: function (IDKupac) {
+							return `<button class="btn btn-info btn-sm btnSelectKupac" data-id-kupac=${IDKupac}>Odaberi</button>`
+						},
+						orderable: false
+					}
+				]
+			});
+			RacunTable = $("#tblRacuni").DataTable();
+			StavkaTable = $("#tblStavke").DataTable();
+		}
+
+		var RacunTable;
+
+		function HandleRacunTable(IDKupac) {
+			if (RacunTable != null) {
+				RacunTable.destroy();
+			}
+
+			RacunTable = $("#tblRacuni").DataTable({
+				ajax: {
+					url: "/api/RacunAPI",
+					method: "get",
+					data: {
+						IDKupac: IDKupac
+					},
+					dataSrc: ""
+				},
+				columns: [
+					{ data: "IDRacun" },
+					{ data: "BrojRacuna" },
+					{
+						data: "IDRacun",
+						render: function (IDRacun) {
+							return `<button class="btn btn-sm btn-info btnSelectRacun" data-id-racun="${IDRacun}">Odaberi</button>`
+						},
+						orderable: false
+					}
+				]
+			});
+		}
+
+		var StavkaTable;
+
+		function HandleStavkaTable(IDRacun) {
+			if (StavkaTable != null) {
+				StavkaTable.destroy();
+			}
+
+			StavkaTable = $("#tblStavke").DataTable({
+				ajax: {
+					url: "/api/StavkaAPI",
+					method: "get",
+					data: {
+						IDRacun: IDRacun
+					},
+					dataSrc: ""
+				},
+				columns: [
+					{data: "IDStavka"},
+					{data: "NazivProizvoda"},
+					{data: "NazivPotkategorije"},
+					{data: "NazivKategorije"},
+					{data: "TipKreditneKartice"},
+					{data: "NazivKomercijalista"}
+				]
+			});
+		}
+
+		var Proizvodi = [];
+		var ProizvodiMap;
+
+		function InitProizvodiList() {
+			$.ajax({
+				url: "/api/ProizvodAPI",
+				method: "Get",
+				dataSrc: ""
+			})
+				.done(function (data) {
+					Proizvodi = data;
+
+					ProizvodiMap = Proizvodi.reduce(function (map, obj) {
+						map[obj.IDProizvod] = obj.Naziv;
+						return map;
+					}, {});
+
+				});
+		}
+
+		$(() => {
+			HandleKupacTable();
+			$("body").on("click", ".btnSelectKupac", function () {
+				const { idKupac } = this.dataset;
+				HandleRacunTable(idKupac);
+			});
+			$("body").on("click", ".btnSelectRacun", function () {
+				const { idRacun } = this.dataset;
+				HandleStavkaTable(idRacun);
+			});
+
+			InitProizvodiList();
+		});
+	</script>
+}

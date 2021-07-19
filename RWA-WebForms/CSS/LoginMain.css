@@ -1,0 +1,59 @@
+﻿.my-grouper {
+	width: 75%;
+	margin: 10px auto;
+}
+
+.my-form-group {
+	display: flex;
+	align-items: center;
+}
+
+	.my-form-group div {
+		background-color: #ced4da;
+		width: 38px;
+		height: 38px;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+		position: relative;
+	}
+
+		.my-form-group div svg {
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+	.my-form-group input,
+	.my-form-group select {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+.my-valid-summary-css {
+	width: 50%;
+	margin: auto;
+	margin-top: 15px;
+}
+
+	.my-valid-summary-css ul {
+		display: flex;
+		flex-direction: column;
+		padding-left: 0;
+		margin-bottom: 0;
+		border-radius: 0;
+		list-style-type: none;
+	}
+
+		.my-valid-summary-css ul li {
+			color: #a83131;
+			border-bottom: 1px solid #6991c755;
+			border-width: 0 0 1px;
+			padding: 5px 0;
+			text-align: center;
+		}
+			.my-valid-summary-css ul li:last-child {
+				border-width: 0;			
+			}
